@@ -1,51 +1,34 @@
 import { Injectable } from '@nestjs/common';
-import { takeLast } from 'rxjs';
-import { Project } from './project';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { Project } from "./project";
+
 
 @Injectable()
 export class ProjectsService {
-    projects: Project[] = [
-        {id: 1, name: 'Teste 1', description: 'descrição 1', beginDate: new Date('01-01-2020'), endDate: new Date('12-31-2020'), active: false},
-        {id: 2, name: 'Teste 2', description: 'descrição 2', beginDate: new Date('01-02-2020'), endDate: new Date('12-31-2020'), active: false},
-        {id: 3, name: 'Teste 3', description: 'descrição 3', beginDate: new Date('01-03-2020'), endDate: new Date('12-31-2020'), active: false},
-    ];
+    
+    constructor(@InjectModel('Project') private readonly projectModel: Model<Project>){}
 
-    getAll(){
-        return this.projects;
+    async getAll(){
+        return await this.projectModel.find().exec();
     }
 
-    getById(id: number){
-        const project = this.projects.find((value) => value.id == id);
-        return project;
+    async getById(id: string){
+        return await this.projectModel.findById(id).exec();
     }
 
-    create(project: Project){
-        let lastId = 0;
-        if(this.projects.length > 0){
-            lastId = this.projects[this.projects.length - 1].id;
-        }
-        project.id = lastId + 1;
-        this.projects.push(project);
-
-        return project;
+    async create(project: Project){
+        const createdProject = new this.projectModel(project);
+        return await createdProject.save();
     }
 
-    update(project: Project){
-        const projectArray = this.getById(project.id);
-        if(projectArray){
-            projectArray.name = project.name;
-            projectArray.description = project.description;
-            projectArray.beginDate = project.beginDate;
-            projectArray.endDate = project.endDate;
-            projectArray.active = project.active;
-        }
-
-        return projectArray;
+    async update(id: string, project: Project){
+        await this.projectModel.updateOne({_id: id}, project).exec();
+        return this.projectModel.findById(id);
     }
 
-    delete(id: number){
-        const index = this.projects.findIndex((value) => value.id == id);
-        this.projects.splice(index, 1);
+    async delete(id: string){
+        return await this.projectModel.deleteOne({_id: id}).exec();
     }
 
 }

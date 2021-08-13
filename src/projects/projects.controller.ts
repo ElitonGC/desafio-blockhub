@@ -13,7 +13,7 @@ export class ProjectsController {
     }
 
     @Get(':id')
-    async getById(@Param('id') id: number) : Promise<Project> {
+    async getById(@Param('id') id: string) : Promise<Project> {
         return this.projectService.getById(id);
     }    
 
@@ -23,13 +23,12 @@ export class ProjectsController {
     }
 
     @Put(':id')
-    async update(@Param('id') id: number, @Body() project: Project): Promise<Project> {
-        project.id = id;
-        return this.projectService.update(project);
+    async update(@Param('id') id: string, @Body() project: Project): Promise<Project> {
+        return this.projectService.update(id, project);
     }
 
     @Delete(':id')
-    async delete(@Param('id') id: number){
+    async delete(@Param('id') id: string){
         this.projectService.delete(id);    
     }
 
