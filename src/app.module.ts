@@ -4,12 +4,14 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ProjectsModule } from './projects/projects.module';
 import { UsersModule } from './users/users.module';
+import { CollaboratorsModule } from './collaborators/collaborators.module';
 
 
 @Module({
   imports: [
     MongooseModule.forRoot('mongodb+srv://admin:admin@cluster0.h9g0v.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'),
     ProjectsModule,
+    CollaboratorsModule,
     UsersModule
   ],
   controllers: [AppController],

@@ -1,6 +1,6 @@
 import { SchemaFactory } from "@nestjs/mongoose";
 import { Document } from "mongoose";
-import { User } from "../shared/user";
+import { User } from "../dto/user";
 
 
 export type UserDocument = User & Document;

@@ -1,6 +1,6 @@
 import { SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
-import { Project } from '../shared/project';
+import { Project } from '../dto/project';
 
 export type ProjectDocument = Project & Document;
 
