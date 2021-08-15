@@ -7,7 +7,7 @@ export class User {
     name: string;
 
     @Prop()
-    email: string;
+    userName: string;
 
     @Prop()
     password: string;

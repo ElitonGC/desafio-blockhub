@@ -2,11 +2,13 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Collaborator } from './dto/collaborator';
+import { CollaboratorDocument } from './schemas/collaborator.schema';
+
 
 @Injectable()
 export class CollaboratorsService {
     
-    constructor(@InjectModel('Collaborator') private readonly collaboratorModel: Model<Collaborator>){}
+    constructor(@InjectModel(Collaborator.name) private readonly collaboratorModel: Model<CollaboratorDocument>){}
 
     async getAll(){
         return await this.collaboratorModel.find().exec();

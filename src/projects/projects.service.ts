@@ -2,12 +2,13 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Project } from "./dto/project";
+import { ProjectDocument } from './schemas/project.schema';
 
 
 @Injectable()
 export class ProjectsService {
     
-    constructor(@InjectModel('Project') private readonly projectModel: Model<Project>){}
+    constructor(@InjectModel(Project.name) private readonly projectModel: Model<ProjectDocument>){}
 
     async getAll(){
         return await this.projectModel.find().exec();
