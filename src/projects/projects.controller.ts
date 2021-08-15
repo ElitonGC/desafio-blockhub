@@ -1,8 +1,11 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
+import { ApiBearerAuth, ApiBody, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/guard/jwt-auth.guard';
 import { Project } from './dto/project';
 import { ProjectsService } from './projects.service';
 
+@ApiBearerAuth()
+@ApiTags('projects')
 @Controller('projects')
 export class ProjectsController {
 

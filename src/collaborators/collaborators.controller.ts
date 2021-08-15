@@ -1,8 +1,11 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/guard/jwt-auth.guard';
 import { CollaboratorsService } from './collaborators.service';
 import { Collaborator } from './dto/collaborator';
 
+@ApiBearerAuth()
+@ApiTags('collaborator')
 @Controller('collaborators')
 export class CollaboratorsController {
     constructor(private collaboratorService: CollaboratorsService){}
