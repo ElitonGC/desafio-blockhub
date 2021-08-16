@@ -20,13 +20,17 @@ export class ProjectsService {
 
     async create(project: Project){
         const createdProject = new this.projectModel(project);
-        if(createdProject.endDate < createdProject.beginDate){
+        if(createdProject.endDate && createdProject.endDate < createdProject.beginDate){
             throw new PreconditionFailedException();
         }
         return await createdProject.save();
     }
 
     async update(id: string, project: Project){
+        const updatedProject = new this.projectModel(project);
+        if(updatedProject.endDate && updatedProject.endDate < updatedProject.beginDate){
+            throw new PreconditionFailedException();
+        }
         await this.projectModel.updateOne({_id: id}, project).exec();
         return this.projectModel.findById(id);
     }

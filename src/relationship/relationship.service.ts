@@ -18,7 +18,7 @@ export class RelationshipService {
     async create(relationship: Relationship){
         const createRelationship = new this.relationshipModel(relationship);
         const conflictVerify =  await this.conflictVerify(createRelationship, "");
-        if(conflictVerify || createRelationship.endDate < createRelationship.beginDate){
+        if(conflictVerify || (createRelationship.endDate && createRelationship.endDate < createRelationship.beginDate)){
             throw new PreconditionFailedException();
         }
         return await createRelationship.save();
@@ -29,7 +29,7 @@ export class RelationshipService {
         updatedRelationship.beginDate = relationship.beginDate;
         updatedRelationship.endDate = relationship.endDate;
         const conflictVerify =  await this.conflictVerify(updatedRelationship, id);
-        if(conflictVerify || updatedRelationship.endDate < updatedRelationship.beginDate){
+        if(conflictVerify || (updatedRelationship.endDate && updatedRelationship.endDate < updatedRelationship.beginDate)){
             throw new PreconditionFailedException();
         }
         await this.relationshipModel.updateOne({_id: id}, relationship).exec();
