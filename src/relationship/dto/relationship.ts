@@ -1,22 +1,23 @@
 import { Prop, Schema } from "@nestjs/mongoose";
 import { ApiProperty } from "@nestjs/swagger";
 
+
 @Schema()
-export class Collaborator {
+export class Relationship {
 
     @Prop({ type: String, required: true })
     @ApiProperty()
-    name: string;
+    idProject: string;
 
     @Prop({ type: String, required: true })
     @ApiProperty()
-    occupation: string;
+    idCollaborator: string;
 
     @Prop({ type: Date, required: true })
     @ApiProperty()
     beginDate: Date;
-
-    @Prop({ type: Boolean, required: false })
+    
+    @Prop({ type: Date, required: false })
     @ApiProperty()
-    active: boolean;
+    endDate: Date;
 }

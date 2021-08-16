@@ -1,32 +1,26 @@
-import { IsDate } from 'class-validator';
-import { Type } from 'class-transformer';
 import { Prop, Schema } from '@nestjs/mongoose';
 import { ApiProperty } from '@nestjs/swagger';
 
-
 @Schema()
 export class Project {
-    @Prop()
+
+    @Prop({ type: String, required: true, unique: true })
     @ApiProperty()
     name: string;
 
-    @Prop()
+    @Prop({ type: String, required: false })
     @ApiProperty()
     description: string;
 
-    @Prop()
-    @Type(() => Date)
-    @IsDate()
+    @Prop({ type: Date, required: true })
     @ApiProperty()
     beginDate: Date;
     
-    @Prop()
-    @Type(() => Date)
-    @IsDate()
+    @Prop({ type: Date, required: false })
     @ApiProperty()
     endDate: Date;
 
-    @Prop()
+    @Prop({ type: Boolean, required: false })
     @ApiProperty()
     active: boolean;
 }

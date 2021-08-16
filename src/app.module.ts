@@ -6,6 +6,7 @@ import { ProjectsModule } from './projects/projects.module';
 import { UsersModule } from './users/users.module';
 import { CollaboratorsModule } from './collaborators/collaborators.module';
 import { AuthModule } from './auth/auth.module';
+import { RelationshipModule } from './relationship/relationship.module';
 
 
 @Module({
@@ -14,6 +15,7 @@ import { AuthModule } from './auth/auth.module';
     ProjectsModule,
     CollaboratorsModule,
     UsersModule,
+    RelationshipModule,
     AuthModule
   ],
   controllers: [AppController],

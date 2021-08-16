@@ -1,22 +1,21 @@
 import { Prop, Schema } from "@nestjs/mongoose";
 import { ApiProperty } from "@nestjs/swagger";
 
-
 @Schema()
 export class User {
-    @Prop()
+    @Prop({ type: String, required: true })
     @ApiProperty()
     name: string;
 
-    @Prop()
+    @Prop({ type: String, required: true, unique: true })
     @ApiProperty()
     userName: string;
 
-    @Prop()
+    @Prop({ type: String, required: true })
     @ApiProperty()
     password: string;
 
-    @Prop()
+    @Prop({ type: Boolean, required: false })
     @ApiProperty()
     active: boolean;
 }
