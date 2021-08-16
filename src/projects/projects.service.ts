@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, PreconditionFailedException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Project } from "./dto/project";
@@ -20,6 +20,9 @@ export class ProjectsService {
 
     async create(project: Project){
         const createdProject = new this.projectModel(project);
+        if(createdProject.endDate < createdProject.beginDate){
+            throw new PreconditionFailedException();
+        }
         return await createdProject.save();
     }
 
